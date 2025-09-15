@@ -26,8 +26,15 @@ class CourtListenerAPI():
         return response
 
 def save_to_json(d):
+    # -- TO DO:
+    # ---- USE DIR FROM CONFIG.YAML INSTEAD
+    
     if any([d['plain_text'], d['html'], d['html_with_citations'], d['xml_harvard']]):
-        with open(f"../../data/raw/opinions/{d['id']}.json", 'w') as f:
+
+        if not os.path.exists("./data"):
+            os.makedirs("./data/raw/opinions")
+
+        with open(f"./data/raw/opinions/{d['id']}.json", 'w') as f:
             json.dump(d, f)
     else:
         print("No text found. Skipping...")

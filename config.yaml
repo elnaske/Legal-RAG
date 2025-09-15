@@ -1,0 +1,7 @@
+# Data
+data:
+  root_dir: "./data/"
+
+# Embedding model
+embedding:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"

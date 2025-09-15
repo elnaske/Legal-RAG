@@ -3,12 +3,15 @@ from glob import glob
 from bs4 import BeautifulSoup
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+# from preprocessing.parsing import parse_html
+
 def parse_html(raw_html):
     soup = BeautifulSoup(raw_html, "html.parser")
 
     # Extract Meta-info
     # - Parties
     # - Court
+    # - Paragraph
     # - Dates? (API may be better)
 
     # Text
@@ -17,7 +20,7 @@ def parse_html(raw_html):
 
     return paragraphs
 
-def main():
+def chunk_html(path):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=100,
         chunk_overlap=20,
@@ -25,17 +28,15 @@ def main():
         is_separator_regex=False,
     )
 
-    for path in glob("../../data/raw/opinions/*.json"):
-        with open(path, 'r') as f:
+    texts_all = []
+    with open(path, 'r') as f:
             opinion = json.load(f)
 
-        if opinion['html']:
-            paragraphs = parse_html(opinion['html'])
+    if opinion['html']:
+        paragraphs = parse_html(opinion['html'])
 
-            texts = text_splitter.create_documents(paragraphs)
-            
-            for i in range(3):
-                print(texts[i])
-
-if __name__ == "__main__":
-    main()
+        texts = text_splitter.create_documents(paragraphs)
+        texts_all = [t.page_content for t in texts]
+    
+    # Should return metadata as well (e.g. paragraph number)
+    return texts_all

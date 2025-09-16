@@ -5,3 +5,7 @@ data:
 # Embedding model
 embedding:
   model_name: "sentence-transformers/all-MiniLM-L6-v2"
+
+# LLM
+llm:
+  model_name: "allenai/OLMo-2-0425-1B-Instruct"

@@ -1,6 +1,7 @@
 import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 import uuid
 from glob import glob
 
@@ -9,11 +10,47 @@ from ingestion.chunking import chunk_html
 
 config = load_config()
 
-model = SentenceTransformer(config["embedding"]["model_name"])
+embedder = SentenceTransformer(config["embedding"]["model_name"])
+print("embedding model loaded")
+tokenizer = AutoTokenizer.from_pretrained(config["llm"]["model_name"], trust_remote_code=True)
+print("tokenizer loaded")
+llm = AutoModelForCausalLM.from_pretrained(config["llm"]["model_name"], device_map="auto", dtype="auto", trust_remote_code=True)
+print("LLM loaded")
+
+llm_pipeline = pipeline(
+    "text-generation",
+    model=llm,
+    tokenizer=tokenizer,
+    max_new_tokens=512
+)
+print("pipeline set up")
+
+def rag_query(user_query):
+    query_embeddings = embedder.encode([user_query])
+
+    results = collection.query(
+        query_embeddings=query_embeddings,
+        n_results=3,
+    )
+    contexts = [doc for doc in results["documents"][0]]
+
+    context_text = "\n\n".join(contexts)
+
+    prompt = f"""Answer the question using the context below.
+
+    Context:
+    {context_text}
+
+    Question: {user_query}
+    Answer:"""
+
+    response = llm_pipeline(prompt)[0]["generated_text"]
+
+    return response
 
 TEST_FILE = "./data/raw/opinions/782535.json"
 chunks = chunk_html(TEST_FILE)
-embeddings = model.encode(chunks)
+embeddings = embedder.encode(chunks)
 
 # --- MOVE TO INGESTION ---
 # ---- vectorstore.py ----
@@ -31,16 +68,10 @@ collection.add(
 #--------------------------
 
 query_texts=[
-        "What does 'AIM' stand for?",
+        "What does 'AIM' mean?",
         "What are the components of Aimster?"
         ]
-query_embeddings = model.encode(query_texts)
 
-results = collection.query(
-    query_embeddings=query_embeddings,
-    n_results=5,
-)
+response = rag_query(query_texts[0])
 
-for i, query_results in enumerate(results["documents"]):
-    print(f"\nQuery {i}: '{query_texts[i]}'")
-    print("\n".join(query_results))
+print(response)

@@ -2,6 +2,8 @@
 
 ## Proposal Notes
 
+  - - -
+
 **a. What is the motivation for your project?**
 
 - Why is this work interesting?
@@ -15,6 +17,8 @@ The user prompts the system with a legal inquiry, which is then discussed by two
 These lawyer-agents support their arguments through RAG, by querying a vector database made up of a case law corpus.
 After a few turns, the discussion ends and the conversation is summarized by another LLM.
 That way, the final answer not only provides relevant case law, but also considers how the other side might try counter it.
+
+  - - -
 
 **b. What do you need for it?**
 
@@ -42,7 +46,9 @@ Stack:
 Our current plan is to mainly use IU's HPC.
 We will store the vector database on Slate and do all of the data extraction and preprocessing on BigRed.
 As for the running the agents, we will evaluate them on one of BigRed's GPU nodes, but for interactive use we might consider using API calls instead to avoid queue times.
-  
+
+  - - -
+
 **c. Who is in the team?**
 
 - If this is a team project, what is your contribution?
@@ -52,7 +58,9 @@ We split up the responsibilities as follows:
 
 - Data Extraction (Ben)
   - Pulling court rulings via API
+     - Setup any scripts to unpack and places files as needed (TBA)
   - Extracting raw text from HTML
+  - Setup SQLite to capture court rulings metadata tags in a relation database for further querying
 - Data Preprocessing (Elias)
   - Chunking texts
   - Extracting metadata
@@ -65,13 +73,35 @@ We split up the responsibilities as follows:
 - Prompt Engineering (Armando)
   - Perfecting agent behavior, modeled after real lawyers
 
+  - - -
+
 **d. How much time does the project consume, as estimated by subtasks?**
 
-- data preparation
-- experiments
-- evaluation
+*There is likely to be overlap and is subject to adjust as project unfolds.*
 
-??????
+- **data preparation** (one-two weeks)
+     - Week 1: 
+        - [ ] Pull court rulings and setup scripts to organize and parse the different file types. Setup organization schema.
+        - [ ] Setup pipeline to extract text from the documents. Setup SQLite to group metadata information (maybe)
+        - [ ] Chunk texts and process metadata
+        - [ ] Start setting up LLMs
+     - Week 2: 
+        - [ ] Generate word embeddings 
+        - [ ] Upload to Vector DB
+
+- **experiments** (one-two weeks)
+     - Week 3: 
+        - [ ] Setup LLMs to talk to each other
+        - [ ] Setup LLMs to query vector db  
+        - [ ] perfect agent behavior through prompt engineering
+        - [ ] Adjust any previous steps 
+- **evaluation** (one week)
+     - Week 4: 
+        - [ ] Evaluate results
+        - [ ] Prepare presentation of results
+
+ - - -
+
 
 **e. How do you evaluate the results of your work?**
 

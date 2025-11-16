@@ -6,9 +6,6 @@
 
 **a. What is the motivation for your project?**
 
-- Why is this work interesting?
-- Who needs the results or outcome/deliverables?
-
 The American legal system follows common law, that is, judicial decisions are, to a large degree, based by precedents set by previous rulings.
 In preparation for a case, lawyers have to do extensive research on these previous rulings to support their arguments.
 This involves a lot of manual work.
@@ -22,26 +19,23 @@ That way, the final answer not only provides relevant case law, but also conside
 
 **b. What do you need for it?**
 
-**data**
-- Do you have the data or do you need to create it?
+**Data**
 
 Court rulings are publically available through free services like courtlistener.com.
 We plan to use their API to pull the necessary data.
 For the sake of scope, we will limit ourselves to one area of law for now.
   
-**code**
-- Is there existing code that you can reuse, or are you coding everything from scratch?
+**Code**
 
 For the most part, we will be using existing packages and solutions, and connect them using our own code.
 
-Stack:
+We currently envision our stack as follows:
 - Data Extraction: CourtListener API, beautifulsoup for parsing HTML
 - Data Preprocessing: Langchain, spaCy
 - Vector database: Chroma
 - LLM: HuggingFace transformers, potentially an API
   
-**infrastructure**
-- Are you running experiments on the cloud, on IU's HPC?
+**Infrastructure**
 
 Our current plan is to mainly use IU's HPC.
 We will store the vector database on Slate and do all of the data extraction and preprocessing on BigRed.
@@ -50,8 +44,6 @@ As for the running the agents, we will evaluate them on one of BigRed's GPU node
   - - -
 
 **c. Who is in the team?**
-
-- If this is a team project, what is your contribution?
 
 The team consists of Armando, Ben, Shusuke, and Elias.
 We split up the responsibilities as follows:
@@ -79,23 +71,24 @@ We split up the responsibilities as follows:
 
 *There is likely to be overlap and is subject to adjust as project unfolds.*
 
-- **data preparation** (one-two weeks)
+- **Data preparation** (one-two weeks)
      - Week 1: 
+        - [ ] Setup API access
         - [ ] Pull court rulings and setup scripts to organize and parse the different file types. Setup organization schema.
         - [ ] Setup pipeline to extract text from the documents. Setup SQLite to group metadata information (maybe)
+     - Week 2:
         - [ ] Chunk texts and process metadata
         - [ ] Start setting up LLMs
-     - Week 2: 
         - [ ] Generate word embeddings 
         - [ ] Upload to Vector DB
 
-- **experiments** (one-two weeks)
+- **Experiments** (one-two weeks)
      - Week 3: 
         - [ ] Setup LLMs to talk to each other
         - [ ] Setup LLMs to query vector db  
-        - [ ] perfect agent behavior through prompt engineering
+        - [ ] Perfect agent behavior through prompt engineering
         - [ ] Adjust any previous steps 
-- **evaluation** (one week)
+- **Evaluation** (one week)
      - Week 4: 
         - [ ] Evaluate results
         - [ ] Prepare presentation of results

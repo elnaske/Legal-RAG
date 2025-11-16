@@ -1,0 +1,14 @@
+[project]
+name = "legal-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.14.2",
+    "chromadb>=1.3.4",
+    "langchain-text-splitters>=1.0.0",
+    "sentence-transformers>=5.1.2",
+    "torch>=2.9.1",
+    "transformers>=4.57.1",
+]

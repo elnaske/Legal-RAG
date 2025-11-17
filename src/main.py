@@ -12,18 +12,20 @@ config = load_config()
 
 embedder = SentenceTransformer(config["embedding"]["model_name"])
 print("embedding model loaded")
-tokenizer = AutoTokenizer.from_pretrained(config["llm"]["model_name"], trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained(
+    config["llm"]["model_name"], trust_remote_code=True
+)
 print("tokenizer loaded")
-llm = AutoModelForCausalLM.from_pretrained(config["llm"]["model_name"], device_map="auto", dtype="auto", trust_remote_code=True)
+llm = AutoModelForCausalLM.from_pretrained(
+    config["llm"]["model_name"], device_map="auto", dtype="auto", trust_remote_code=True
+)
 print("LLM loaded")
 
 llm_pipeline = pipeline(
-    "text-generation",
-    model=llm,
-    tokenizer=tokenizer,
-    max_new_tokens=512
+    "text-generation", model=llm, tokenizer=tokenizer, max_new_tokens=512
 )
 print("pipeline set up")
+
 
 def rag_query(user_query):
     query_embeddings = embedder.encode([user_query])
@@ -48,7 +50,8 @@ def rag_query(user_query):
 
     return response
 
-TEST_FILE = "./data/raw/opinions/782535.json"
+
+TEST_FILE = "./data/raw/opinions/9951612.json"
 chunks = chunk_html(TEST_FILE)
 embeddings = embedder.encode(chunks)
 
@@ -63,14 +66,11 @@ collection.add(
     ids=[str(uuid.uuid4()) for _ in chunks],
     documents=chunks,
     embeddings=embeddings,
-    metadatas=[{"n": n} for n in range(len(chunks))]
+    metadatas=[{"n": n} for n in range(len(chunks))],
 )
-#--------------------------
+# --------------------------
 
-query_texts=[
-        "What does 'AIM' mean?",
-        "What are the components of Aimster?"
-        ]
+query_texts = ["What does 'AIM' mean?", "What are the components of Aimster?"]
 
 response = rag_query(query_texts[0])
 

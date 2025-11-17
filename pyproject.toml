@@ -13,3 +13,12 @@ dependencies = [
     "torch>=2.9.1",
     "transformers>=4.57.1",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.1",
+    "pytest-cov>=7.0.0",
+]
+
+[tool.pyest.ini.options]
+addopts = "--cov=legal-rag"

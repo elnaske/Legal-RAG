@@ -111,19 +111,32 @@ uv sync --upgrade-package numpy
 - - - 
 #### Running files with uv:
 
+ - If you're using VScode, your IDE should just pick up on the venv from uv. So, feel free to skip the section below if you have no issues
+ - - -
+ ##### Running from command line
  - To run files with uv, it's important to use the following command:
 ```bash
-# uv run python -m directory.module
+# uv run python directory/module
 # e.g. from project root
-uv run python -m src.main.py
-
-# or you can drop the -m and do:
 uv run python src/main.py
+# or
+uv run src/main.py
 
 # or you could run an individual file directly like:
 cd src/ingestion
 # from src/ingestion
 uv run python gather.py
-
+```
+- If it's decided we want to run these as modules, which has benefits for setting up scripts and using stuff like `pytest`, we can run with the following instead:
+     - *Note:* we would just need to adjust some imports for this. If we do this without fulling committing though, we can run into that *"can't find directory 'x"* error
+```bash
+# uv run python -m directory.module
+# e.g. from project root
+uv run python -m src.main
+# or
+uv run src.main
+- - - 
+# notice how -m (module) expects no file type. 
+# Whereas if you just do python <file>, the .py is expected.
 ```
 - - -

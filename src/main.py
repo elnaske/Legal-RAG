@@ -55,20 +55,22 @@ TEST_FILE = "./data/raw/opinions/9951612.json"
 chunks = chunk_html(TEST_FILE)
 embeddings = embedder.encode(chunks)
 
-# --- MOVE TO INGESTION ---
-# ---- vectorstore.py ----
-client = chromadb.Client(Settings(anonymized_telemetry=False))
-
-collection = client.create_collection(name="docs")
-
-# Add embeddings
-collection.add(
-    ids=[str(uuid.uuid4()) for _ in chunks],
-    documents=chunks,
-    embeddings=embeddings,
-    metadatas=[{"n": n} for n in range(len(chunks))],
-)
-# --------------------------
+# # --- MOVE TO INGESTION ---
+# # ---- vectorstore.py ----
+# client = chromadb.Client(
+#     Settings(anonymized_telemetry=False),
+# )
+#
+# collection = client.create_collection(name="docs")
+#
+# # Add embeddings
+# collection.add(
+#     ids=[str(uuid.uuid4()) for _ in chunks],
+#     documents=chunks,
+#     embeddings=embeddings,
+#     metadatas=[{"n": n} for n in range(len(chunks))],
+# )
+# # --------------------------
 
 query_texts = ["What does 'AIM' mean?", "What are the components of Aimster?"]
 

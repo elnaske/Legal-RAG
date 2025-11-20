@@ -5,8 +5,12 @@ from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 import uuid
 from glob import glob
 
-from utils import load_config
-from ingestion.chunking import chunk_html
+# need to change to module approach
+# from utils import load_config
+# from ingestion.chunking import chunk_html
+
+from .utils import load_config
+from .ingestion.chunking import chunk_html
 
 config = load_config()
 

@@ -1,4 +1,5 @@
 import os
+from db_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -18,3 +19,14 @@ db_connection = create_engine(
 
 # create session object to use this db connection
 SessionLocal = sessionmaker(bind=db_connection, autoflush=False)
+
+
+# one time initialization
+def init_db():
+    print(f"Creating tables for SQLite db: {DATABASE_URL}")
+    Base.metadata.create_all(bind=db_connection)
+    print("Setup of DB complete")
+
+
+if __name__ == "__main__":
+    init_db()

@@ -3,7 +3,8 @@ from dotenv import load_dotenv
 import os
 import json
 
-class CourtListenerAPI():
+
+class CourtListenerAPI:
     def __init__(self):
         self.headers = {"Authorization": f"Token {self.get_api_key()}"}
         self.root_url = "https://www.courtlistener.com/api/rest/v4/"
@@ -15,9 +16,9 @@ class CourtListenerAPI():
         if API_KEY is None:
             print("Enter CourtListener API token:")
             API_KEY = input()
-        
+
         return API_KEY
-    
+
     def call(self, url, params=None):
         if not url.startswith("http"):
             url = os.path.join(self.root_url, url)
@@ -25,19 +26,21 @@ class CourtListenerAPI():
         response = requests.get(url, params=params, headers=self.headers)
         return response
 
+
 def save_to_json(d):
     # -- TO DO:
     # ---- USE DIR FROM CONFIG.YAML INSTEAD
-    
-    if any([d['plain_text'], d['html'], d['html_with_citations'], d['xml_harvard']]):
+
+    if any([d["plain_text"], d["html"], d["html_with_citations"], d["xml_harvard"]]):
 
         if not os.path.exists("./data"):
             os.makedirs("./data/raw/opinions")
 
-        with open(f"./data/raw/opinions/{d['id']}.json", 'w') as f:
+        with open(f"./data/raw/opinions/{d['id']}.json", "w") as f:
             json.dump(d, f)
     else:
         print("No text found. Skipping...")
+
 
 def main():
     # CourtListener API:
@@ -47,21 +50,21 @@ def main():
 
     api = CourtListenerAPI()
 
-    query_r = api.call("search", params = {"q": "copyright"})
+    query_r = api.call("search", params={"q": "copyright"})
 
     if query_r.status_code == 200:
         q_data = query_r.json()
 
         print("Total Results:", q_data["count"])
 
-        for result in q_data['results']:
-            print("-"*20)
-            print(result['cluster_id'], result['caseName'])
+        for result in q_data["results"]:
+            print("-" * 20)
+            print(result["cluster_id"], result["caseName"])
 
             cluster_r = api.call(f"clusters/{result['cluster_id']}")
             c_data = cluster_r.json()
 
-            for opinion in c_data['sub_opinions']:
+            for opinion in c_data["sub_opinions"]:
                 print(opinion)
 
                 opinion_r = api.call(opinion)
@@ -69,6 +72,7 @@ def main():
                 save_to_json(opinion_r.json())
     else:
         print("Error:", query_r.status_code, query_r.text)
+
 
 if __name__ == "__main__":
     main()

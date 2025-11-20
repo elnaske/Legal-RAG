@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 import os
 import json
 
+# SQL db stuff
+from .SQLite_db import SessionLocal
+from .db_model import Cluster, Opinions
+
 
 class CourtListenerAPI:
     def __init__(self):
@@ -40,6 +44,11 @@ def save_to_json(d):
             json.dump(d, f)
     else:
         print("No text found. Skipping...")
+
+
+# upserting the Cluster and Opinion data to SQLdb
+def sql_db_upsert(cluster_json, opinion_json):
+    pass
 
 
 def main():

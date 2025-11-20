@@ -41,7 +41,7 @@ class Cluster(Base):
 
 # Opinions are the child object
 class Opinions(Base):
-    __tablename__ = "opinion"
+    __tablename__ = "opinions"
 
     # unique id
     id = Column(BigInteger, primary_key=True)

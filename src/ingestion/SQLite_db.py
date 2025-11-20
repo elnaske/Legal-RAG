@@ -1,5 +1,5 @@
 import os
-from db_model import Base
+from .db_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -13,7 +13,7 @@ db_connection = create_engine(
     future=True,
     # to allow acces from different threads
     connect_args=(
-        {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {},
+        {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
     ),
 )
 

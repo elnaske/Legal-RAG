@@ -1,8 +1,10 @@
+import uuid
+from glob import glob
 import chromadb
 from chromadb.config import Settings
 
 
-def vector_storage():
+def vector_storage(chunks: list[str], embeddings) -> None:
     client = chromadb.Client(
         Settings(anonymized_telemetry=False),
     )
@@ -16,4 +18,3 @@ def vector_storage():
         embeddings=embeddings,
         metadatas=[{"n": n} for n in range(len(chunks))],
     )
-    # --------------------------

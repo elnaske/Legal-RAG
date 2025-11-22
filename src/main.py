@@ -1,14 +1,10 @@
 from sentence_transformers import SentenceTransformer
-from torch import embedding
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+import uuid
 
-# Changed for modular approach
-# from utils import load_config
-# from ingestion.chunking import chunk_html
-
-from .utils import load_config
-from .ingestion.chunking import chunk_html
-from .ingestion.vectorstore import vector_storage
+from utils import load_config
+from ingestion import chunk_html
+from vectorstore import VectorStore
 
 config = load_config()
 
@@ -28,39 +24,28 @@ llm_pipeline = pipeline(
 )
 print("pipeline set up")
 
-
-def rag_query(user_query):
-    query_embeddings = embedder.encode([user_query])
-
-    results = collection.query(
-        query_embeddings=query_embeddings,
-        n_results=3,
-    )
-    contexts = [doc for doc in results["documents"][0]]
-
-    context_text = "\n\n".join(contexts)
-
-    prompt = f"""Answer the question using the context below.
-
-    Context:
-    {context_text}
-
-    Question: {user_query}
-    Answer:"""
-
-    response = llm_pipeline(prompt)[0]["generated_text"]
-
-    return response
-
+vecdb = VectorStore(
+    path=config["vec_db"]["root_dir"],
+    collection="docs",
+    embedder=embedder,
+)
 
 TEST_FILE = "./data/raw/opinions/9951612.json"
+# TEST_FILE = "./data/raw/opinions/782535.json"
 chunks = chunk_html(TEST_FILE)
 embeddings = embedder.encode(chunks)
 
-vector_storage(chunks, embeddings)
+vecdb.collection.add(
+    ids=[str(uuid.uuid4()) for _ in chunks],
+    documents=chunks,
+    embeddings=embeddings,
+    metadatas=[{"n": n} for n in range(len(chunks))],
+)
 
 query_texts = ["What does 'AIM' mean?", "What are the components of Aimster?"]
 
-response = rag_query(query_texts[0])
+rag_prompt = vecdb.rag_query(query_texts[0], n_results=3)
+
+response = llm_pipeline(rag_prompt)[0]["generated_text"]
 
 print(response)

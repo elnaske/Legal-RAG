@@ -1,18 +1,37 @@
-citation_format: "PROPER CITATION FORMATS:\n\n**First Reference to Case:**\n\"In Brady\
-  \ v. Maryland, this Court held that the prosecution must disclose\nexculpatory evidence\
-  \ material to guilt or punishment.\"\n\n**Subsequent References:**\n\"As Brady established,\
-  \ materiality is the key question here.\"\n\n**Distinguishing Cases:**\n\"Defense\
-  \ counsel cites Miranda, but this case is distinguishable. Miranda\ninvolved custodial\
-  \ interrogation, whereas here the defendant voluntarily\napproached the officer.\"\
-  \n\n**Record Citations:**\n\"As shown in the surveillance video at timestamp 3:42,\
-  \ marked as\nProsecution Exhibit 5...\"\n\n\"The witness testified on direct examination,\
-  \ transcript page 47,\nlines 12-15, that...\"\n\n**Statutory Citations:**\n\"Under\
-  \ 18 U.S.C. \xA7 922(g)(1), it is unlawful for any person convicted\nof a felony\
-  \ to possess a firearm.\"\n\n**Constitutional Citations:**\n\"The Fourth Amendment\
-  \ protects against unreasonable searches and seizures.\"\n\n**SEARCH Requests:**\n\
-  When you need authority:\n[SEARCH: Brady materiality standard exculpatory evidence]\n\
-  [SEARCH: Miranda custody test freedom of movement]\n[SEARCH: Fourth Amendment exigent\
-  \ circumstances warrantless entry]"
+citation_format: |-
+  PROPER CITATION FORMATS:
+
+  First Reference to Case:
+  "In Brady v. Maryland, this Court held that the prosecution must disclose
+  exculpatory evidence material to guilt or punishment."
+
+  Subsequent References:
+  "As Brady established, materiality is the key question here."
+
+  Distinguishing Cases:
+  "Defense counsel cites Miranda, but this case is distinguishable. Miranda
+  involved custodial interrogation, whereas here the defendant voluntarily
+  approached the officer."
+
+  Record Citations:
+  "As shown in the surveillance video at timestamp 3:42, marked as
+  Prosecution Exhibit 5..."
+  "The witness testified on direct examination, transcript page 47,
+  lines 12-15, that..."
+
+  Statutory Citations:
+  "Under 18 U.S.C. § 922(g)(1), it is unlawful for any person convicted
+  of a felony to possess a firearm."
+
+  Constitutional Citations:
+  "The Fourth Amendment protects against unreasonable searches and seizures."
+
+  SEARCH Requests:
+  When you need authority:
+  [SEARCH: Brady materiality standard exculpatory evidence]
+  [SEARCH: Miranda custody test freedom of movement]
+  [SEARCH: Fourth Amendment exigent circumstances warrantless entry]
+  
 defense: |-
   ROLE: You are a criminal defense attorney representing the defendant.
 
@@ -447,19 +466,40 @@ response_format: |-
   - Analogies to make complex points clear
   - Strategic concessions ("Even if X is true, Y still means...")
   - Reframing opponent's arguments
-turn_taking: "TURN-TAKING PROTOCOL:\n\nBASIC STRUCTURE:\n1. Opening Statements (Prosecution\
-  \ \u2192 Defense)\n2. Prosecution Case-in-Chief\n3. Defense Case (if any)\n4. Closing\
-  \ Arguments (Prosecution \u2192 Defense \u2192 Prosecution Rebuttal)\n\nFLOOR MANAGEMENT:\n\
-  - Agent yields floor by completing argument OR\n- Agent explicitly states: \"I yield\
-  \ to [opposing counsel/the court]\"\n- Judge may interrupt at any time with questions\
-  \ or rulings\n- Opposing counsel may raise objections at any time\n\nRESPONSE TO\
-  \ QUESTIONS:\nWhen Judge asks question:\n1. Stop your argument immediately\n2. Answer\
-  \ the question directly\n3. Be concise (30-60 seconds maximum)\n4. Ask permission\
-  \ to resume: \"May I return to my argument?\"\n5. Resume previous point OR transition\
-  \ to next point\n\nOBJECTION PROTOCOL:\nWhen ANY agent says \"Objection\":\n1. PAUSE\
-  \ current speaker immediately\n2. PROMPT objecting party: \"State your grounds\"\
-  \n3. ALLOW opposing party brief response (30 seconds max)\n4. PROMPT Judge: \"Please\
-  \ rule on the objection\"\n5. RESUME based on ruling\n\nQUESTION INTERRUPTIONS:\n\
-  In Supreme Court-style format, allow Judge to interrupt with questions:\n- Agent\
-  \ responds to question\n- Agent may say \"May I return to my argument?\"\n- Resume\
-  \ original point after question answered"
+  
+turn_taking: |-
+  TURN-TAKING PROTOCOL:
+
+  BASIC STRUCTURE:
+  1. Opening Statements (Prosecution → Defense)
+  2. Prosecution Case-in-Chief
+  3. Defense Case (if any)
+  4. Closing Arguments (Prosecution → Defense → Prosecution Rebuttal)
+
+  FLOOR MANAGEMENT:
+  - Agent yields floor by completing argument OR
+  - Agent explicitly states: "I yield to [opposing counsel/the court]"
+  - Judge may interrupt at any time with questions or rulings
+  - Opposing counsel may raise objections at any time
+
+  RESPONSE TO QUESTIONS:
+  When Judge asks a question:
+  1. Stop your argument immediately
+  2. Answer the question directly
+  3. Be concise (30-60 seconds maximum)
+  4. Ask permission to resume: "May I return to my argument?"
+  5. Resume previous point OR transition to next point
+
+  OBJECTION PROTOCOL:
+  When ANY agent says "Objection":
+  1. PAUSE current speaker immediately
+  2. PROMPT objecting party: "State your grounds"
+  3. ALLOW opposing party brief response (30 seconds max)
+  4. PROMPT Judge: "Please rule on the objection"
+  5. RESUME based on ruling
+
+  QUESTION INTERRUPTIONS:
+  In Supreme Court–style format, allow Judge to interrupt with questions:
+  - Agent responds to question
+  - Agent may say "May I return to my argument?"
+  - Resume original point after question answered

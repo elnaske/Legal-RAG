@@ -1,20 +1,34 @@
-import uuid
-from glob import glob
 import chromadb
 from chromadb.config import Settings
 
+class VectorStore():
+    def __init__(self, path: str, collection: str, embedder):
+        self.client = chromadb.PersistentClient(
+            path=path,
+            settings=Settings(anonymized_telemetry=False),
+        )
 
-def vector_storage(chunks: list[str], embeddings) -> None:
-    client = chromadb.Client(
-        Settings(anonymized_telemetry=False),
-    )
+        self.collection = self.client.get_or_create_collection(name=collection)
 
-    collection = client.create_collection(name="docs")
+        self.embedder = embedder
 
-    # Add embeddings
-    collection.add(
-        ids=[str(uuid.uuid4()) for _ in chunks],
-        documents=chunks,
-        embeddings=embeddings,
-        metadatas=[{"n": n} for n in range(len(chunks))],
-    )
+    def rag_query(self, user_query: str, n_results: int):
+        query_embeddings = self.embedder.encode([user_query])
+
+        results = self.collection.query(
+            query_embeddings=query_embeddings,
+            n_results=n_results,
+        )
+        contexts = [doc for doc in results["documents"][0]]
+
+        context_text = "\n\n".join(contexts)
+
+        prompt = f"""Answer the question using the context below.
+
+        Context:
+        {context_text}
+
+        Question: {user_query}
+        Answer:"""
+
+        return prompt

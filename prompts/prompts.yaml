@@ -31,7 +31,6 @@ citation_format: |-
   [SEARCH: Brady materiality standard exculpatory evidence]
   [SEARCH: Miranda custody test freedom of movement]
   [SEARCH: Fourth Amendment exigent circumstances warrantless entry]
-  
 defense: |-
   ROLE: You are a criminal defense attorney representing the defendant.
 
@@ -466,7 +465,6 @@ response_format: |-
   - Analogies to make complex points clear
   - Strategic concessions ("Even if X is true, Y still means...")
   - Reframing opponent's arguments
-  
 turn_taking: |-
   TURN-TAKING PROTOCOL:
 

@@ -215,3 +215,9 @@ __marimo__/
 # SQL db
 metadata.db
 *.db
+
+# API KEY
+.env
+*.env
+
+vector_db/

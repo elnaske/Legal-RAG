@@ -83,3 +83,104 @@ Returns the complete system prompt for the judge agent.
 ```python
 judge_prompt = get_judge_prompt()
 ```
+
+### Procedural Protocols
+
+#### `get_turn_taking_protocol() -> str`
+Returns instructions for managing conversational turns and Supreme Court-style interruptions.
+
+```python
+turn_protocol = get_turn_taking_protocol()
+# Append to agent context or use in system coordinator
+```
+
+#### `get_rag_integration_protocol() -> str`
+Returns the protocol for handling case law search requests and integrating retrieval results.
+
+**Covers:**
+- Search request format: `[SEARCH: query text]`
+- Query optimization strategies
+- Result formatting
+- Citation incorporation
+
+```python
+rag_protocol = get_rag_integration_protocol()
+```
+
+### Guidelines and Formats
+
+#### `get_response_format_guidelines() -> str`
+Returns general response structure and argumentation techniques applicable to all agents.
+
+#### `get_citation_format_examples() -> str`
+Returns examples of proper legal citation formats for cases, statutes, and constitutional provisions.
+
+```python
+citation_guide = get_citation_format_examples()
+# Use as reference for citation generation
+```
+
+### Quality Control
+
+#### `get_quality_checklist(agent_role: str) -> str`
+Returns a role-specific pre-submission checklist.
+
+**Parameters:**
+- `agent_role`: One of `"prosecution"`, `"defense"`, or `"judge"`
+
+**Raises:**
+- `ValueError`: If agent_role is invalid
+
+```python
+# Get checklists for each role
+prosecution_checklist = get_quality_checklist("prosecution")
+defense_checklist = get_quality_checklist("defense")
+judge_checklist = get_quality_checklist("judge")
+```
+
+### System Management
+
+#### `get_error_recovery_protocol() -> str`
+Returns protocols for handling off-topic responses, stalled debates, and other system issues.
+
+```python
+recovery_protocol = get_error_recovery_protocol()
+# Use in system coordinator/orchestrator
+```
+
+### Convenience Function
+
+#### `get_all_prompts() -> Dict[str, str]`
+Returns all available prompts in a single dictionary.
+
+```python
+all_prompts = get_all_prompts()
+
+# Access individual prompts
+prosecution = all_prompts['prosecution']
+defense = all_prompts['defense']
+judge = all_prompts['judge']
+rag_protocol = all_prompts['rag_integration']
+
+# Available keys:
+# - 'prosecution'
+# - 'defense'
+# - 'judge'
+# - 'turn_taking'
+# - 'rag_integration'
+# - 'response_format'
+# - 'citation_format'
+# - 'prosecution_checklist'
+# - 'defense_checklist'
+# - 'judge_checklist'
+# - 'error_recovery'
+```
+
+## Module Constants
+
+```python
+from prompts import AGENT_ROLES, AVAILABLE_PROMPTS
+
+print(AGENT_ROLES)  # ['prosecution', 'defense', 'judge']
+print(AVAILABLE_PROMPTS)  # List of all available prompt keys
+```

@@ -184,3 +184,78 @@ from prompts import AGENT_ROLES, AVAILABLE_PROMPTS
 print(AGENT_ROLES)  # ['prosecution', 'defense', 'judge']
 print(AVAILABLE_PROMPTS)  # List of all available prompt keys
 ```
+
+## Prompt Structure
+
+All agent prompts follow a consistent structure:
+
+1. **ROLE**: Clear definition of agent's role
+2. **OBJECTIVES**: Primary goals and responsibilities
+3. **STRATEGIC PRIORITIES**: Tactics derived from Supreme Court analysis
+4. **ARGUMENTATION STRUCTURE**: Phase-by-phase guidance
+5. **CASE LAW CITATION**: Format and requirements for searches
+6. **PROTOCOLS**: Objections, questions, rulings (role-specific)
+7. **ETHICAL CONSTRAINTS**: Boundaries and requirements
+
+## RAG Search Format
+
+Agents request case law using the format:
+```
+[SEARCH: query text here]
+```
+
+Examples:
+- `[SEARCH: Fourth Amendment warrantless search exigent circumstances]`
+- `[SEARCH: Brady materiality standard exculpatory evidence]`
+- `[SEARCH: hearsay exception business records foundation]`
+
+The system should:
+1. Pause the agent's turn
+2. Extract and process the query
+3. Retrieve relevant case law (top 3-5 cases)
+4. Format results with holdings and relevance
+5. Resume agent's turn with results
+
+## Testing
+
+Run the module directly for a simple demonstration:
+
+```bash
+python prompts.py
+```
+
+Output will show available roles and prompts with example usage.
+
+## Design Philosophy
+
+The prompts are designed based on several key principles:
+
+1. **Authenticity**: Derived from analysis of actual Supreme Court oral arguments
+2. **Modularity**: Each prompt is self-contained and can be used independently
+3. **Clarity**: Clear structure and explicit instructions for AI agents
+4. **Flexibility**: Can be adapted to different case types and trial phases
+5. **Quality Control**: Built-in checklists and validation protocols
+
+## Source Material
+
+Prompts are based on analysis of:
+- *Samia v. United States* (Confrontation Clause)
+- *Betterman v. Montana* (Speedy Trial)
+- *Glossip v. Oklahoma* (Due Process/Brady violations)
+
+## Contributing
+
+When extending or modifying prompts:
+
+1. Maintain the consistent structure across agent types
+2. Add comprehensive docstrings to new functions
+3. Include usage examples in docstrings
+4. Update `get_all_prompts()` to include new prompts
+5. Add new prompt keys to `AVAILABLE_PROMPTS` constant
+6. Update this README with new functionality
+
+## Version History
+
+- **v1.0** (2025): Initial release with prosecution, defense, and judge prompts based on Supreme Court argument analysis
+
+---

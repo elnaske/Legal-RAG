@@ -13,3 +13,11 @@ embedding:
 # LLM
 llm:
   model_name: "allenai/OLMo-2-0425-1B-Instruct"
+
+# Agents
+# - this should be split by role later
+agents:
+  model_name: "llama-3.1-8b-instant"
+  API_key_name: "GROQ_API_KEY"
+  API_base_url: "https://api.groq.com/openai/v1"
+  temperature: 0.3

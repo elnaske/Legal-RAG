@@ -4,10 +4,10 @@
 # import json
 
 # data gathering imports
-from src.ingestion import CourtListenerAPI, sql_db_upsert, save_to_json
+from src.ingestion import CourtListenerAPI, save_to_json
 
 # SQL related imports
-from src.vectorstore import init_db
+from src.vectorstore import init_db, sql_db_upsert
 
 
 def pull_data():

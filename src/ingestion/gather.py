@@ -5,7 +5,7 @@ import json
 from datetime import date
 
 # SQL related imports
-from vectorstore import SessionLocal, Cluster, Opinions
+from src.vectorstore import SessionLocal, Cluster, Opinions
 
 
 class CourtListenerAPI:

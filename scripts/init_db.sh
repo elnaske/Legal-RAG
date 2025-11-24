@@ -14,7 +14,5 @@ else
 	echo "SQL db directory created at '$SQL_DB'"
 fi
 
-cd src/
-
 # run db initialization on machine
-uv run -m vectorstore.SQLite_db
+uv run -m src.vectorstore.SQLite_db

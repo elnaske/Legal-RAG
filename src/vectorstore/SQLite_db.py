@@ -5,7 +5,7 @@ File to initialize SQL database on machine.
 import os
 from pathlib import Path
 
-from .db_model import Base
+from src.vectorstore.db_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

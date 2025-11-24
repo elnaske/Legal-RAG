@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Getting the db file (on slate)
 # need to reset on slate
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./metadata.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./SQL/metadata.db")
 
 # building DB connection
 db_connection = create_engine(
@@ -21,6 +21,7 @@ db_connection = create_engine(
 SessionLocal = sessionmaker(bind=db_connection, autoflush=False)
 
 
+# NOTE: NEED TO PASS DATABASE_URL
 # one time initialization
 def init_db():
     print(f"Creating tables for SQLite db: {DATABASE_URL}")

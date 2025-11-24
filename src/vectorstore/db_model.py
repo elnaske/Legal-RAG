@@ -35,7 +35,7 @@ class Cluster(Base):
     )
 
     # relational part
-    opinions = relationship("Opinion", back_populates="cluster")
+    opinions = relationship("Opinions", back_populates="cluster")
     chunks = relationship("Chunk", back_populates="cluster")
 
 
@@ -79,4 +79,4 @@ class Chunk(Base):
 
     # relational part
     cluster = relationship("Cluster", back_populates="chunks")
-    opinion = relationship("Opinion", back_populates="chunks")
+    opinions = relationship("Opinions", back_populates="chunks")

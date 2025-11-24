@@ -3,10 +3,8 @@ from dotenv import load_dotenv
 import os
 import json
 
-# SQL db stuff
-from .SQLite_db import SessionLocal
-from .db_model import Cluster, Opinions
-
+# SQL related imports
+from vectorstore import SessionLocal, Cluster, Opinions
 
 class CourtListenerAPI:
     def __init__(self):

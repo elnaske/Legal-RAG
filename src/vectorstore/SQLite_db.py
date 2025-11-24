@@ -1,5 +1,5 @@
 import os
-from .db_model import Base
+from vectorstore.db_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

@@ -7,7 +7,7 @@
 from ingestion import CourtListenerAPI, sql_db_upsert, save_to_json
 
 # SQL related imports
-# from vectorstore import SessionLocal, Cluster, Opinions
+from vectorstore import init_db
 
 
 def pull_data():
@@ -15,6 +15,9 @@ def pull_data():
     # Dockets > Clusters > Opinions
     # Text is in opinions (either plain text, html, or xml; latter two preferred for parsing)
     # Metadata is split across all three and sometimes redundant (e.g. dockets and clusters contain case names, but opinions don't)
+
+    # ensure db is initialized
+    init_db()
 
     api = CourtListenerAPI()
 

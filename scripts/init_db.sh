@@ -10,7 +10,7 @@ if [ -d "$SQL_DB" ]; then
 	echo "SQL_DB directory exists at '$SQL_DB' "
 else
 	echo "SQL db directory doesn't exist..."
-	mkdir "SQL"
+	mkdir -p "./SQL"
 	echo "SQL db directory created at '$SQL_DB'"
 fi
 

@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+# Setting up Relational DB if none exists
 # DB directory
 SQL_DB="./SQL/"
 
@@ -16,3 +17,9 @@ fi
 
 # run db initialization on machine
 uv run -m src.vectorstore.SQLite_db
+
+echo -e "\n**********\nDatabase has been initialized\n**********"
+
+# Pulling data
+echo -e "\nPulling data...\n"
+uv run -m src.pull_data

@@ -2,9 +2,9 @@ from sentence_transformers import SentenceTransformer
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 import uuid
 
-from utils import load_config
-from ingestion import chunk_html
-from vectorstore import VectorStore
+from src.utils import load_config
+from src.ingestion import chunk_html
+from src.vectorstore import VectorStore
 
 config = load_config()
 

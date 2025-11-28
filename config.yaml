@@ -2,6 +2,14 @@
 data:
   root_dir: "./data/"
 
+# Vector Database
+vec_db:
+  root_dir: "./chroma/"
+
+# SQL Database
+sql_db:
+  root_dir: "./SQL/"
+
 # Embedding model
 embedding:
   model_name: "sentence-transformers/all-MiniLM-L6-v2"

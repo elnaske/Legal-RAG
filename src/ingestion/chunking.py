@@ -1,9 +1,6 @@
 import json
-from glob import glob
 from bs4 import BeautifulSoup
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
-# from preprocessing.parsing import parse_html
 
 def parse_html(raw_html):
     soup = BeautifulSoup(raw_html, "html.parser")
@@ -30,7 +27,7 @@ def chunk_html(path):
 
     texts_all = []
     with open(path, 'r') as f:
-            opinion = json.load(f)
+        opinion = json.load(f)
 
     if opinion['html']:
         paragraphs = parse_html(opinion['html'])

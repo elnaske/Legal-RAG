@@ -5,7 +5,8 @@ set -euo pipefail
 # Setting up Relational DB if none exists
 # DB directory
 # SQL_DB="./SQL/"
-SQL_DB=$(python3 - << 'EOF'
+SQL_DB=$(
+	python3 - <<'EOF'
 from src.utils import load_config
 print(load_config()["sql_db"]["root_dir"])
 EOF
@@ -19,9 +20,6 @@ else
 	mkdir -p "./SQL"
 	echo "SQL db directory created at '$SQL_DB'"
 fi
-
-# run db initialization on machine
-uv run -m src.vectorstore.SQLite_db
 
 echo -e "\n**********\nDatabase has been initialized\n**********"
 

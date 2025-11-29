@@ -26,6 +26,9 @@ echo -e "\n**********\nDatabase has been initialized\n**********"
 echo -e "\nPulling data...\n"
 uv run -m src.bin.pull_data
 
+# Download spaCy model for preprocessing
+uv run -m spacy download en_core_web_sm
+
 # Preprocessing / Adding to vector DB
 echo -e "\nPreprocessing documents and uploading them to the vector database...\n"
 uv run -m src.bin.setup_vecdb

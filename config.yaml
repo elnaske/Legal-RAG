@@ -17,3 +17,9 @@ embedding:
 # LLM
 llm:
   model_name: "allenai/OLMo-2-0425-1B-Instruct"
+
+preprocessing:
+  text_splitter: "recursive" # "spacy" or "recursive". Defaults to recursive if none
+  chunking_args: # Arguments used to init the text splitter. See LangChain reference (https://reference.langchain.com/python/langchain_text_splitters)
+    chunk_size: 4000
+    chunk_overlap: 200

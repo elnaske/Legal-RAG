@@ -2,7 +2,7 @@ import json
 from bs4 import BeautifulSoup
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-def parse_html(raw_html):
+def parse_html(raw_html: str) -> list[str]:
     soup = BeautifulSoup(raw_html, "html.parser")
 
     # Extract Meta-info
@@ -18,6 +18,7 @@ def parse_html(raw_html):
     return paragraphs
 
 def chunk_html(path):
+    """Marked for deletion, only used in main.py"""
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=100,
         chunk_overlap=20,

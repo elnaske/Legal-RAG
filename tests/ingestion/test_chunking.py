@@ -1,5 +1,5 @@
 import pytest
-from src.ingestion.chunking import parse_html, chunk_html
+from src.preprocessing.chunking import parse_html, chunk_html
 
 
 def test_parse_html():

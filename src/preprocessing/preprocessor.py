@@ -22,16 +22,29 @@ class Preprocessor:
         Returns:
             A dict containing text, embeddings, and metadata for all chunks. Intended to be used as input to vector DB.
         """
-        # check for html
-        if not opinion.get("html"):
-            print(f"Opinion {opinion["id"]} has no HTML text. Skipping...")
-            return None
-        
-        html = opinion["html"]
+        # formats = ["html", "html_lawbox", "html_columbia", "html_anon_2020", "xml_harvard"]
+        formats = ["html"]
 
-        paragraphs = parse_html(html)
+        # Check for supported formats
+        paragraphs = []
+        for format in formats:
+            if opinion.get(format):
+                raw_text = opinion[format]
+                paragraphs = parse_html(raw_text)
+                break
+            # If no markup available, fall back to plain text
+            if opinion.get("plain_text"):
+                raw_text = opinion["plain_text"]
+                paragraphs = raw_text.split("\n")
+            else:
+                print(f"Opinion {opinion["id"]} has no text. Skipping...")
+                return None
 
         chunks = self.chunk(paragraphs)
+
+        if not chunks:
+            print(f"Opinion{ opinion["id"]}: No chunks. Skipping...")
+            return None
 
         embs = self.get_embeddings(chunks)
 

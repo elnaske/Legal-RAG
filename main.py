@@ -3,7 +3,7 @@ from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 import uuid
 
 from src.utils import load_config
-from src.ingestion import chunk_html
+from src.preprocessing import chunk_html
 from src.vectorstore import VectorStore
 
 config = load_config()

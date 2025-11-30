@@ -4,7 +4,6 @@ set -euo pipefail
 
 # Setting up Relational DB if none exists
 # DB directory
-# SQL_DB="./SQL/"
 SQL_DB=$(
 	python3 - <<'EOF'
 from src.utils import load_config
@@ -25,4 +24,11 @@ echo -e "\n**********\nDatabase has been initialized\n**********"
 
 # Pulling data
 echo -e "\nPulling data...\n"
-uv run -m src.pull_data
+uv run -m src.bin.pull_data
+
+# Download spaCy model for preprocessing
+uv run -m spacy download en_core_web_sm
+
+# Preprocessing / Adding to vector DB
+echo -e "\nPreprocessing documents and uploading them to the vector database...\n"
+uv run -m src.bin.setup_vecdb

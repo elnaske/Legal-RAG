@@ -20,8 +20,6 @@ else
 	echo "SQL db directory created at '$SQL_DB'"
 fi
 
-echo -e "\n**********\nDatabase has been initialized\n**********"
-
 # Pulling data
 echo -e "\nPulling data...\n"
 uv run -m src.bin.pull_data

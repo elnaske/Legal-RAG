@@ -10,7 +10,8 @@ from src.ingestion import CourtListenerAPI, save_to_json
 from src.vectorstore import init_db, sql_db_upsert
 
 
-def pull_data():
+def pull_data() -> None:
+    """Pull data using CourtListener API. Saves opinion results to a .json file that is stored in the chroma vector db. Pushes cluster and opinion metadata to SQL relational db."""
     # CourtListener API:
     # Dockets > Clusters > Opinions
     # Text is in opinions (either plain text, html, or xml; latter two preferred for parsing)

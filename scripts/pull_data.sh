@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # taking in MAX_PAGES as an arg to the script
-MAX_PAGES="${1:-5}"
+MAX_PAGES="${1:-1}"
 
 # Setting up Relational DB if none exists
 # DB directory

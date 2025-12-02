@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# taking in MAX_PAGES as an arg to the script
+MAX_PAGES="${1:-5}"
+
 # Setting up Relational DB if none exists
 # DB directory
 SQL_DB=$(
@@ -21,8 +24,9 @@ else
 fi
 
 # Pulling data
-echo -e "\nPulling data...\n"
-uv run -m src.bin.pull_data
+echo -e "\nPulling data (max pages: $MAX_PAGES)...\n"
+# max-pages dictates how many pages on the site to pull data from
+uv run -m src.bin.pull_data --max-pages "$MAX_PAGES"
 
 # Download spaCy model for preprocessing
 uv run -m spacy download en_core_web_sm

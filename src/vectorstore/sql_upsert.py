@@ -1,15 +1,18 @@
 from datetime import date
-from src.vectorstore import SessionLocal, Cluster, Opinions
+from typing import Any
+
+from src.vectorstore import Cluster, Opinions, SessionLocal
 
 
 # upserting the Cluster and Opinion data to SQLdb
-def sql_db_upsert(c_jn, o_jn):
-    """
-    Starting up DB session and then grabbing relevant metadata per record
+def sql_db_upsert(c_jn: Any, o_jn: Any) -> None:
+    """Start up DB session and then grabbing relevant metadata per record.
+
+    Does upsert adding data to related object if it exists or creates a new entry if unique identify cannot be found.
 
     Args:
-        c_jn: cluster json
-        o_jn: opinion json
+        c_jn : cluster json
+        o_jn : opinion json
     """
     db = SessionLocal()
 
@@ -42,7 +45,7 @@ def sql_db_upsert(c_jn, o_jn):
             cluster.precedential_status = c_jn.get("precedential_status")
             cluster.raw_source = c_jn  # raw json
 
-        # db.add(cluster)
+        db.add(cluster)
 
         # getting the opinion data
         opinions = db.get(Opinions, o_jn["id"])
@@ -63,7 +66,7 @@ def sql_db_upsert(c_jn, o_jn):
             opinions.author = o_jn.get("author")
             opinions.raw_source = o_jn
 
-        # db.add(opinions)
+        db.add(opinions)
 
         # saving changes
         db.commit()

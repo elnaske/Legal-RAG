@@ -18,12 +18,13 @@ On **Linux**, you can install Typst through Snap:
 sudo snap install typst
 ```
 
-On **MacOS**, you can install Typst through [Homebrew](https://brew.sh/)
+On **MacOS**, you can install Typst through [Homebrew](https://brew.sh/):
 ```
 brew install typst
 ```
 
 This will allow you to use the CLI to compile `.typ` files into full documents.
+
 To preview your changes in real time, you can use the [Tinymist Typst extension in VS Code](https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist).
 
 ## Previewing and Saving Documents

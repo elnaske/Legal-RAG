@@ -13,6 +13,7 @@ dependencies = [
     "langchain-text-splitters>=1.0.0",
     "langgraph>=1.0.3",
     "pip>=25.3",
+    "pyyaml>=6.0.3",
     "sentence-transformers>=5.1.2",
     "spacy>=3.8.11",
     "sqlalchemy>=2.0.44",

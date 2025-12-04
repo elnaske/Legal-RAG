@@ -18,6 +18,13 @@ embedding:
 llm:
   model_name: "allenai/OLMo-2-0425-1B-Instruct"
 
+# Agents
+# - this should be split by role later
+agents:
+  model_name: "llama-3.1-8b-instant"
+  API_key_name: "GROQ_API_KEY"
+  API_base_url: "https://api.groq.com/openai/v1"
+  temperature: 0.3
 preprocessing:
   text_splitter: "spacy" # "spacy" or "recursive". Defaults to recursive if none
   chunking_args: # Arguments used to init the text splitter. See LangChain reference (https://reference.langchain.com/python/langchain_text_splitters)

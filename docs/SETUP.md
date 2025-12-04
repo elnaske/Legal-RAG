@@ -1,11 +1,18 @@
 # PROJECT SETUP
 - - - 
 
-1. [Installing uv](#installing-uv)
-2. [Syncing project dependencies](#syncing-project-dependencies)
-3. [Running files with uv](#running-files-with-uv)
+- [PROJECT SETUP](#project-setup)
+  - [UV](#uv)
+    - [Installing uv](#installing-uv)
+      - [Verify UV installation](#verify-uv-installation)
+    - [Syncing project dependencies](#syncing-project-dependencies)
+      - [Notes on UV:](#notes-on-uv)
+      - [Project Sync:](#project-sync)
+      - [Running files with uv:](#running-files-with-uv)
+        - [Running from command line](#running-from-command-line)
+  - [Setting up API access](#setting-up-api-access)
 - - - 
-
+## UV
 ### Installing uv
 
 *Incase you're wondering, uv is a fast tool that's meant to be an all in one for pip, virtualenv, etc...*
@@ -36,7 +43,7 @@ From **PowerShell:**
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-#####  Verify UV installation
+####  Verify UV installation
 
  - To verify you've installed it correctly, from your Terminal (or PowerShell), run:
 ```
@@ -139,4 +146,16 @@ uv run src.main
 # notice how -m (module) expects no file type. 
 # Whereas if you just do python <file>, the .py is expected.
 ```
+- - -
+
+## Setting up API access
+
+Go to `courtlistener.com` and create an account. Then navigate to `Account > Developer Tools > Your API Token` to find your API key.
+
+In your local repository, create a file named `.env`, and add the following line, replacing `your api key here` with your API key:
+
+```
+COURTLISTENER_API_KEY=your_api_key_here
+```
+
 - - -

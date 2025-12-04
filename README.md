@@ -99,28 +99,3 @@ We split up the responsibilities as follows:
 **e. How do you evaluate the results of your work?**
 
 Since we aren't lawyers, and professional legal advice is outside of our budget, we have decided to evaluate the agents based on the accuracy of their citations.
-
-
-## Setup Notes
-
-### API Key
-
-Go to `courtlistener.com` and create an account. Then navigate to `Account > Developer Tools > Your API Token` to find your API key.
-
-In your local repository, create a file named `.env`, and add the following line, replacing `your api key here` with your API key:
-
-```
-COURTLISTENER_API_KEY=your_api_key_here
-```
-
-### Dependencies
-
-As of now the project has the following dependencies:
-
-- chromadb (Vector DB)
-- sentence_transformers (For the embedding model)
-- transformers (For the LLM)
-- beatifulsoup4 (For parsing HTML)
-- langchain-text-splitters (Text Chunking)
-- dot-env (For reading the API key; cf. above)
-- PyTorch

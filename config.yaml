@@ -6,6 +6,10 @@ data:
 vec_db:
   root_dir: "./chroma/"
 
+# SQL Database
+sql_db:
+  root_dir: "./SQL/"
+
 # Embedding model
 embedding:
   model_name: "sentence-transformers/all-MiniLM-L6-v2"
@@ -21,3 +25,8 @@ agents:
   API_key_name: "GROQ_API_KEY"
   API_base_url: "https://api.groq.com/openai/v1"
   temperature: 0.3
+preprocessing:
+  text_splitter: "spacy" # "spacy" or "recursive". Defaults to recursive if none
+  chunking_args: # Arguments used to init the text splitter. See LangChain reference (https://reference.langchain.com/python/langchain_text_splitters)
+    chunk_size: 4000
+    chunk_overlap: 200

@@ -1,14 +1,18 @@
+import json
+import os
+
 import requests
 from dotenv import load_dotenv
-import os
-import json
-
-# SQL db stuff
-from .SQLite_db import SessionLocal
-from .db_model import Cluster, Opinions
 
 
 class CourtListenerAPI:
+    """API object that allows for connection to pull Courtlistener data.
+
+    Attributes:
+        headers (str): Header that uses os env API key for authorization
+        root_url (str): Static root URL to courlistener site. Essentially const.
+    """
+
     def __init__(self):
         self.headers = {"Authorization": f"Token {self.get_api_key()}"}
         self.root_url = "https://www.courtlistener.com/api/rest/v4/"
@@ -36,7 +40,6 @@ def save_to_json(d):
     # ---- USE DIR FROM CONFIG.YAML INSTEAD
 
     if any([d["plain_text"], d["html"], d["html_with_citations"], d["xml_harvard"]]):
-
         if not os.path.exists("./data"):
             os.makedirs("./data/raw/opinions")
 

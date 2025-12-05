@@ -6,7 +6,7 @@ def main():
     config = load_config()
 
     print("=== Legal-RAG Agent System ===")
-    user_query = input("Ask a legal question:\n> ")
+    user_query = input("Enter your legal question: ")
 
     answer = run_agent_pipeline(user_query, config)
 

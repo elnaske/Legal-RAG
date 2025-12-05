@@ -1,9 +1,13 @@
 from src.prompts import get_all_prompts
+from src.vectorstore.vectorstore import get_vectorstore
+
+vectorstore = get_vectorstore()
 
 class LegalAgent():
     def __init__(self, role, llm):
         self.role = role
         self.llm = llm
+        self.vectorstore = vectorstore
         self.prompts = get_all_prompts()
 
     def get_prompt_instruction(self):
@@ -21,7 +25,18 @@ class DefendantAgent(LegalAgent):
     def respond(self, user_question: str, prior_turns: str = ""):
         prompt = self.get_prompt_instruction()
 
+        n_results = 5
+        contexts = self.vectorstore.query(user_query=user_question,
+                                          n_results=n_results)
+        context_text = "\n\n".join(contexts)
+
+        print("[DEBUG] n contexts:", len(contexts))
+        print("[DEBUG] first 300 chars:\n", context_text[:300])
+
         prompt += f"""
+        CONTEXT:
+        {context_text}
+
         USER QUESTION:
         {user_question}
 
@@ -40,7 +55,15 @@ class ProsecutorAgent(LegalAgent):
     def respond(self, user_question: str, prior_turns: str = ""):
         prompt = self.get_prompt_instruction()
 
+        n_results = 5
+        contexts = self.vectorstore.query(user_query=user_question,
+                                          n_results=n_results)
+        context_text = "\n\n".join(contexts)
+
         prompt += f"""
+        CONTEXT:
+        {context_text}
+        
         USER QUESTION:
         {user_question}
 
@@ -59,7 +82,15 @@ class JudgeAgent(LegalAgent):
     def summarize(self, question, prosecution, defense):
         prompt = self.get_prompt_instruction()
 
+        n_results = 5
+        contexts = self.vectorstore.query(user_query=question,
+                                          n_results=n_results)
+        context_text = "\n\n".join(contexts)
+
         prompt += f"""
+        CONTEXT:
+        {context_text}
+
         CASE SUMMARY REQUEST:
 
         QUESTION:

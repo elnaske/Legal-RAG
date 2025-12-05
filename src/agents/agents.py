@@ -1,13 +1,11 @@
 from src.prompts import get_all_prompts
 from src.vectorstore.vectorstore import get_vectorstore
 
-vectorstore = get_vectorstore()
-
 class LegalAgent():
     def __init__(self, role, llm):
         self.role = role
         self.llm = llm
-        self.vectorstore = vectorstore
+        self.vectorstore = get_vectorstore()
         self.prompts = get_all_prompts()
 
     def get_prompt_instruction(self):
@@ -30,8 +28,8 @@ class DefendantAgent(LegalAgent):
                                           n_results=n_results)
         context_text = "\n\n".join(contexts)
 
-        print("[DEBUG] n contexts:", len(contexts))
-        print("[DEBUG] first 300 chars:\n", context_text[:300])
+        # print("[DEBUG] n contexts:", len(contexts))
+        # print("[DEBUG] first 300 chars:\n", context_text[:300])
 
         prompt += f"""
         CONTEXT:

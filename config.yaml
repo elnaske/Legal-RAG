@@ -28,5 +28,6 @@ agents:
 preprocessing:
   text_splitter: "spacy" # "spacy" or "recursive". Defaults to recursive if none
   chunking_args: # Arguments used to init the text splitter. See LangChain reference (https://reference.langchain.com/python/langchain_text_splitters)
-    chunk_size: 4000
-    chunk_overlap: 200
+    separator: ""
+    chunk_size: 1000
+    chunk_overlap: 100

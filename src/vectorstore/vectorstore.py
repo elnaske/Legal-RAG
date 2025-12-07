@@ -22,7 +22,10 @@ class VectorStore():
             query_embeddings=query_embeddings,
             n_results=n_results,
         )
-        contexts = [doc for doc in results["documents"][0]]
+
+        contexts = []
+        for doc, meta in zip(results["documents"][0], results["metadatas"][0]):  # type: ignore
+            contexts += [f"{meta["casename"]} ({meta["year"]}): {doc}"]
         return contexts
 
     def rag_query(self, user_query: str, n_results: int):

@@ -17,24 +17,24 @@ def parse_html(raw_html: str) -> list[str]:
 
     return paragraphs
 
-def chunk_html(path):
-    """Marked for deletion, only used in main.py"""
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=100,
-        chunk_overlap=20,
-        length_function=len,
-        is_separator_regex=False,
-    )
+# def chunk_html(path):
+#     """Marked for deletion, only used in main.py"""
+#     text_splitter = RecursiveCharacterTextSplitter(
+#         chunk_size=100,
+#         chunk_overlap=20,
+#         length_function=len,
+#         is_separator_regex=False,
+#     )
 
-    texts_all = []
-    with open(path, 'r') as f:
-        opinion = json.load(f)
+#     texts_all = []
+#     with open(path, 'r') as f:
+#         opinion = json.load(f)
 
-    if opinion['html']:
-        paragraphs = parse_html(opinion['html'])
+#     if opinion['html']:
+#         paragraphs = parse_html(opinion['html'])
 
-        texts = text_splitter.create_documents(paragraphs)
-        texts_all = [t.page_content for t in texts]
+#         texts = text_splitter.create_documents(paragraphs)
+#         texts_all = [t.page_content for t in texts]
     
-    # Should return metadata as well (e.g. paragraph number)
-    return texts_all
+#     # Should return metadata as well (e.g. paragraph number)
+#     return texts_all

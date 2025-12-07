@@ -1,6 +1,8 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter, SpacyTextSplitter
 import uuid
-from typing import Union
+from pathlib import Path
+import re
+from typing import Union, Dict
 
 from src.preprocessing.chunking import parse_html
 
@@ -35,6 +37,7 @@ class Preprocessor:
             # If no markup available, fall back to plain text
             if opinion.get("plain_text"):
                 raw_text = opinion["plain_text"]
+                raw_text = re.sub(r"\s\s+", "\n ", raw_text)
                 paragraphs = raw_text.split("\n")
             else:
                 print(f"Opinion {opinion["id"]} has no text. Skipping...")
@@ -48,7 +51,13 @@ class Preprocessor:
 
         embs = self.get_embeddings(chunks)
 
-        metadatas = [{"n": n} for n in range(len(chunks))]
+        doc_metadata = self.extract_doc_metadata(opinion)
+
+        metadatas = []
+        for n in range(len(chunks)):
+            chunk_dict = doc_metadata.copy()
+            chunk_dict["n"] = n
+            metadatas += [chunk_dict]
 
         return {
             "ids": [(str(uuid.uuid4())) for _ in chunks],
@@ -56,7 +65,33 @@ class Preprocessor:
             "embeddings": embs,
             "metadatas": metadatas,
         }
-    
+
+    def extract_doc_metadata(self, opinion: dict) -> dict:
+        """
+        Extracts metadata from opinion document:
+        - Case name
+        - Decision date
+        """
+        path = opinion.get("local_path")
+        if path:
+            parts = Path(path).parts
+            year, month, day, name = parts[1:]
+
+            name = name[:-4] # cut off .pdf
+            name = name.replace("_", " ")
+        else:
+            year, month, day, name = "unk", "unk", "unk", "unk"
+
+        metadata = {
+            "year": year,
+            "month": month,
+            "day": day,
+            "casename": name,
+        }
+
+        return metadata
+
+
     def chunk(self, raw_text: Union[str, list[str]]) -> list[str]:
         """
         Splits raw text into chunks.
@@ -64,9 +99,14 @@ class Preprocessor:
         if isinstance(raw_text, str):
             raw_text = [raw_text]
 
-        texts = self.text_splitter.create_documents(raw_text)
-        chunks = [t.page_content for t in texts] 
-        return chunks
+        raw_text = " ".join(raw_text)
+
+        # texts = self.text_splitter.create_documents(raw_text)
+        # chunks = [t.page_content for t in texts] 
+        # return chunks
+
+        texts = self.text_splitter.split_text(raw_text)
+        return texts
     
     def get_embeddings(self, chunks):
         """

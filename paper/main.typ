@@ -41,8 +41,13 @@ That way, the final answer not only provides relevant case law, but also conside
 = Agents
 == Infrastructure
 
-== Prompts
+== Case Selection and Analysis
+Three Supreme Court criminal cases were selected to represent diverse legal domains: 
+Samia v. United States (2023) addressing Confrontation Clause issues, Betterman v. Montana (2016) concerning Sixth Amendment speedy trial rights, and Glossip v. Oklahoma (2024) involving death penalty procedures and prosecutorial misconduct. 
+Oral argument transcripts from these cases were systematically analyzed to identify recurring patterns in advocate behavior, judicial intervention styles, citation formats, cross-examination techniques, and objection handling protocols. 
+This analysis revealed distinct strategic priorities employed by prosecution and defense counsel, with prosecution consistently leading with strongest evidence and framing issues narrowly, while defense led with constitutional violations and framed issues broadly to expand protective precedents.
 
+== Prompt Architecture
 = Results
 
 = Conclusion

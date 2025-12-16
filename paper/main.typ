@@ -48,6 +48,16 @@ Oral argument transcripts from these cases were systematically analyzed to ident
 This analysis revealed distinct strategic priorities employed by prosecution and defense counsel, with prosecution consistently leading with strongest evidence and framing issues narrowly, while defense led with constitutional violations and framed issues broadly to expand protective precedents.
 
 == Prompt Architecture
+The initial prompt development phase produced structured prompts for three primary agent roles: prosecution, defense, and judge. 
+Each agent prompt contained role definitions specifying primary objectives, strategic priorities derived from Supreme Court transcript analysis, a four-phase argumentation structure covering opening statements through closing arguments, case law citation requirements with triggers for requesting legal research, objection protocols specifying proper format and grounds, and ethical constraints reflecting professional responsibility rules. 
+Strategic priorities were deliberately grounded in observed advocate behavior rather than theoretical legal strategy, ensuring realistic courtroom argumentation patterns.
+
+Supporting protocols were developed to govern multi-agent interaction, including a turn-taking protocol establishing structured courtroom procedure, a RAG Integration Protocol defining a seven-step process for handling agent-generated search requests, response format guidelines providing structural templates, citation format examples demonstrating proper legal citation styles, and an error recovery protocol providing coordinator intervention procedures. 
+Quality checklists were developed for each agent role with pre-submission verification points and red flag warnings for common errors.
+
+== RAG Integration Design
+
+== Implementation and Verification
 = Results
 
 = Conclusion

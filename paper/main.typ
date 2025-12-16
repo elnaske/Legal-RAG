@@ -35,11 +35,13 @@ That way, the final answer not only provides relevant case law, but also conside
 
 = Data
 == Extraction
-To properly implement our Rag-based system, it goes without saying that one of the most imperative items for Legal-RAG was to extract proper data. In RAG, retrieval is achieved by calculating the similarity
-(e.g. cosine similarity) between the embeddings of the question and document chunks, where the semantic representation
-capability of embedding models plays a key role @Gao2023-jq. With this, given the goals of Legal-RAG, documents representative of related case law were necessary for proper retrieval. For our datasource, we went with the open source project by the Free Law Project, CourtListener @FreeLawProject_CourtListener_2025. CourtListener is a free legal research that conatains millions of real legal opinions and cases. All of these cases are available for public reserach through their site and free REST API. Therefore, for Legal-RAG's use case, accessing the legal opinions and their related case data through their REST API provided a clear path forward for generating proper documents for chunking.
+To properly implement our RAG-based system, it goes without saying that one of the most imperative items for Legal-RAG was to extract proper data. In RAG, retrieval is achieved by calculating the similarity
+(e.g., cosine similarity) between the embeddings of the question and document chunks, where the semantic representation
+capability of embedding models plays a key role @Gao2023-jq. Given the goals of Legal-RAG, documents representative of related case law were necessary for proper retrieval. For our data source, we went with the open-source project by the Free Law Project, CourtListener @FreeLawProject_CourtListener_2025. CourtListener is a free legal research tool that contains millions of real legal opinions and cases. All of these cases are available for public research on their site and via their free REST API. Therefore, for Legal-RAG's use case, accessing legal opinions and their related case data via their REST API provided a clear path to generating proper documents for chunking.
 
-While the millions of records from CourtListener would be the source of data, further data extraction was necessary. One notable aspect of how data is pulled from CourtListener is in how their data is organized. CourtListener provides data in heirarchical structure, all represented in .json format. Clusters of opinions related to one case are represented as one cluster record, with child relationships to the various opinion .json records. Firstly, we needed a scheme to organize the data so that the agents would only query the opinions for accurate similarity in retrieval. To achieve this, we parsed out and saved the sub-opinions separately from the cluster records.  
+While the millions of records from CourtListener would be the source of data, further data extraction was necessary. One notable aspect of how data is pulled from CourtListener is how their data is organized. CourtListener provides data in a hierarchical structure, all of which is represented in .json format. Clusters of opinions related to a single case are represented as a single cluster record, with child relationships to the various opinion .json records. Firstly, we needed a scheme to organize the data so that the agents would only query opinions for accurate similarity-based retrieval. To achieve this, we parsed the sub-opinions and saved them separately from the cluster records. In the opinion records, we had access to the judge who authored the opinion, the type of opinion, when and where the opinion was filed, and, perhaps most importantly, the text of the opinion. The text was stored in either HTML, plain text, or XML formatting. The text contained the written opinion in long form and was the most essential field for accurate RAG retrieval. Therefore, we omitted any opinions that did not contain any text for the opinion.
+
+For meta-tooling purposes, we also wanted to be able to query and observe what data we pulled. The case type was not contained at the opinion level, but rather the parent cluster record. With this, a decision was also made to implement a relational database with SQLite @sqlite2020hipp. Implementing a SQLite relational database enabled us to query for records of specific case types and to record the relational structure of the data retrieved. The decision to include the relational aspects of the data during data extraction was also made to improve future work scalability. Future work may leverage the relational nature of the cases to improve RAG retrieval.
 
 
 == Preprocessing
@@ -49,7 +51,7 @@ While the millions of records from CourtListener would be the source of data, fu
 
 == Case Selection and Analysis
 Three Supreme Court criminal cases were selected to represent diverse legal domains: 
-Samia v. United States (2023) addressing Confrontation Clause issues, Betterman v. Montana (2016) concerning Sixth Amendment speedy trial rights, and Glossip v. Oklahoma (2024) involving death penalty procedures and prosecutorial misconduct. 
+Samia v. United States @samia2023 addressing Confrontation Clause issues, Betterman v. Montana @betterman2016 concerning Sixth Amendment speedy trial rights, and Glossip v. Oklahoma @glossip2024 involving death penalty procedures and prosecutorial misconduct. 
 Oral argument transcripts from these cases were systematically analyzed to identify recurring patterns in advocate behavior, judicial intervention styles, citation formats, cross-examination techniques, and objection handling protocols. 
 This analysis revealed distinct strategic priorities employed by prosecution and defense counsel, with prosecution consistently leading with strongest evidence and framing issues narrowly, while defense led with constitutional violations and framed issues broadly to expand protective precedents.
 
@@ -86,6 +88,7 @@ These enable Supreme Court-derived argumentation strategies, integrated RAG supp
 The modular architecture supports various usage patterns from single-agent deployment to complete multi-agent courtroom simulation, with each component capable of independent use, testing, and version control.
 
 = Results
+
 
 = Conclusion
 

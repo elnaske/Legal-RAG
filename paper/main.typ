@@ -56,6 +56,19 @@ Supporting protocols were developed to govern multi-agent interaction, including
 Quality checklists were developed for each agent role with pre-submission verification points and red flag warnings for common errors.
 
 == RAG Integration Design
+A critical design decision involved enabling agents to generate their own search queries rather than relying solely on user input. 
+The prompts instruct agents to generate queries in the format "[SEARCH: legal doctrine + key facts + jurisdiction]" when they need legal authority. 
+Agent-generated queries are optimized for the specific legal issue being argued at the moment authority is needed, contain relevant legal terminology drawn from the agent's knowledge, and support iterative research as arguments develop. 
+Example queries were embedded within prompts to teach appropriate specificity, such as "[SEARCH: fourth amendment warrantless search exigent circumstances]" demonstrating the inclusion of constitutional doctrine, procedural context, and relevant exception.
+
+The RAG loop implementation uses pattern matching to detect search requests within agent responses. 
+When an agent outputs text containing "[SEARCH: query text]", the system extracts the query string, pauses the agent's turn, queries the vector database with the extracted query, formats retrieved results according to the RAG Integration Protocol presenting case names, holdings, and relevance explanations, and continues the agent's turn by providing formatted results within the conversation context. 
+The agent then incorporates retrieved case law into its argument using proper citation format, with the process repeating up to a configurable maximum number of iterations to prevent infinite loops.
+
+The RAG loop architecture was implemented using a base class pattern where shared methods handle query extraction via regular expression pattern matching, vector store querying, result formatting per protocol specifications, and RAG loop processing coordinating the entire retrieval and continuation cycle. 
+The core processing method queries the vector store with the user's original question for initial context, generates the agent's initial response, then enters a loop that continues until no search requests are detected. 
+Within each iteration, the method extracts search queries from the agent's response, queries the vector store using the agent's query rather than the user's question, formats results, constructs a continuation prompt providing results and requesting argument continuation, and invokes the language model to generate the continuation. 
+This approach ensures agents maintain conversation context throughout retrieval, building arguments iteratively with progressively refined case law research.
 
 == Implementation and Verification
 = Results

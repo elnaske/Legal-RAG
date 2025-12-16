@@ -19,7 +19,7 @@
   ),
   
   abstract: [
-    #lorem(50)
+    Legal research in common law depends heavily on the time-intensive manual work to find related precedent cases and predict potential counterarguments. We present Legal-RAG, a retrieval-augmented, multi-agent reasoning system that simulates courtroom-style argumentation to support case preparation. We use the free, open-source data from CourtListener to build a RAG system that enables Agents to simulate courtroom debate. 
   ],
 )
 
@@ -37,7 +37,7 @@ That way, the final answer not only provides relevant case law, but also conside
 == Extraction
 To properly implement our RAG-based system, it goes without saying that one of the most imperative items for Legal-RAG was to extract proper data. In RAG, retrieval is achieved by calculating the similarity
 (e.g., cosine similarity) between the embeddings of the question and document chunks, where the semantic representation
-capability of embedding models plays a key role @Gao2023-jq. Given the goals of Legal-RAG, documents representative of related case law were necessary for proper retrieval. For our data source, we went with the open-source project by the Free Law Project, CourtListener @FreeLawProject_CourtListener_2025. CourtListener is a free legal research tool that contains millions of real legal opinions and cases. All of these cases are available for public research on their site and via their free REST API. Therefore, for Legal-RAG's use case, accessing legal opinions and their related case data via their REST API provided a clear path to generating proper documents for chunking.
+capability of embedding models plays a key role @Gao2023-jq. Given the goals of Legal-RAG, documents representative of related case law were necessary for proper retrieval. For our data source, we went with the open-source project by the Free Law Project, CourtListener @FreeLawProject_CourtListener_2025. CourtListener is a free legal research tool that contains millions of real legal opinions and cases. All of these cases are available for public research on their site and via their free REST API. Therefore, for Legal-RAG's use case, accessing legal opinions and related case data via CourtListener's REST API provided a clear path to generating proper documents for chunking.
 
 While the millions of records from CourtListener would be the source of data, further data extraction was necessary. One notable aspect of how data is pulled from CourtListener is how their data is organized. CourtListener provides data in a hierarchical structure, all of which is represented in .json format. Clusters of opinions related to a single case are represented as a single cluster record, with child relationships to the various opinion .json records. Firstly, we needed a scheme to organize the data so that the agents would only query opinions for accurate similarity-based retrieval. To achieve this, we parsed the sub-opinions and saved them separately from the cluster records. In the opinion records, we had access to the judge who authored the opinion, the type of opinion, when and where the opinion was filed, and, perhaps most importantly, the text of the opinion. The text was stored in either HTML, plain text, or XML formatting. The text contained the written opinion in long form and was the most essential field for accurate RAG retrieval. Therefore, we omitted any opinions that did not contain any text for the opinion.
 

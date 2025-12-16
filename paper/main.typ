@@ -35,6 +35,12 @@ That way, the final answer not only provides relevant case law, but also conside
 
 = Data
 == Extraction
+To properly implement our Rag-based system, it goes without saying that one of the most imperative items for Legal-RAG was to extract proper data. In RAG, retrieval is achieved by calculating the similarity
+(e.g. cosine similarity) between the embeddings of the question and document chunks, where the semantic representation
+capability of embedding models plays a key role @Gao2023-jq. With this, given the goals of Legal-RAG, documents representative of related case law were necessary for proper retrieval. For our datasource, we went with the open source project by the Free Law Project, CourtListener @FreeLawProject_CourtListener_2025. CourtListener is a free legal research that conatains millions of real legal opinions and cases. All of these cases are available for public reserach through their site and free REST API. Therefore, for Legal-RAG's use case, accessing the legal opinions and their related case data through their REST API provided a clear path forward for generating proper documents for chunking.
+
+While the millions of records from CourtListener would be the source of data, further data extraction was necessary. One notable aspect of how data is pulled from CourtListener is in how their data is organized. CourtListener provides data in heirarchical structure, all represented in .json format. Clusters of opinions related to one case are represented as one cluster record, with child relationships to the various opinion .json records. Firstly, we needed a scheme to organize the data so that the agents would only query the opinions for accurate similarity in retrieval. To achieve this, we parsed out and saved the sub-opinions separately from the cluster records.  
+
 
 == Preprocessing
 

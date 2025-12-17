@@ -75,7 +75,15 @@ The chunks and embeddings where added to a Chroma @chroma database along with mi
 
 = Agents
 == Infrastructure
-The agent infrastructure functions as multi-agent reasoning orchestration, where mulitple role-specific agents adaptively simulates a legal proceeding. They are structured to present arguments on both sides of an argument and summarize the consequence. Under the system, three primary agents, namely Prosecution, Defense, and Judge agents, are utilized. Prosecution agent plays a role in arguing for a conviction. Defense agent provides counter-arguments to the prosecution. Finaly, Judge agent operates as a neutral party, summarizing the entire debate and evaluate the accuracy and the relevance of the citations presented by Prosecution and Defense agents. All three agents are powered by llama3.1. Since multiple LLM calls are executed per user query, potentially including extra turns, the computational cost can easily blow up fast with an API model. Therefore, running llama3.1 on local makes the loops affordable though it needs to be swithced to a stronger API model in the future to maximize the response quality.
+The agent infrastructure functions as multi-agent reasoning orchestration, where mulitple role-specific agents adaptively simulates a legal proceeding. 
+They are structured to present arguments on both sides of an argument and summarize the consequence. 
+Under the system, three primary agents, namely prosecution, defense, and judge agents, are utilized. 
+Prosecution agent plays a role in arguing for a conviction. 
+The defense agent provides counter-arguments to the prosecution. 
+Finally, the judge agent operates as a neutral party, summarizing the entire debate and evaluate the accuracy and the relevance of the citations presented by the prosecution and defense agents. 
+All three agents are powered by Llama3.1. 
+Since multiple LLM calls are executed per user query, potentially including extra turns, the computational cost can easily blow up fast with an API model. 
+Therefore, running Llama3.1 on local makes the loops affordable though it needs to be switched to a stronger API model in the future to maximize the response quality.
 
 == Case Selection and Analysis
 Three Supreme Court criminal cases were selected to represent diverse legal domains: 

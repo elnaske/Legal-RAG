@@ -87,6 +87,24 @@ The final prompt system produced eleven distinct components: three agent prompts
 These enable Supreme Court-derived argumentation strategies, integrated RAG support with agent-generated queries, role-specific quality control mechanisms, ethical constraints, structured turn-taking and objection handling, and consistent response formatting. 
 The modular architecture supports various usage patterns from single-agent deployment to complete multi-agent courtroom simulation, with each component capable of independent use, testing, and version control.
 
+= Evaluation
+The Legal-RAG system requires evaluation across multiple dimensions to assess both agent behavior quality and RAG integration effectiveness. 
+While comprehensive quantitative evaluation remains ongoing work, the current system underwent qualitative assessment during development to validate core functionality.
+
+== Evaluation Framework
+The evaluation framework encompasses four primary dimensions. 
+Role adherence assesses whether agents maintain their assigned roles throughout interaction, with the prosecution adopting appropriately aggressive argumentation, the defense maintaining a protective stance toward defendant rights, and the judge demonstrating neutrality and procedural correctness. 
+Legal soundness evaluation examines whether arguments follow logical structure consistent with legal reasoning, employ proper legal terminology and citation formats, and adhere to courtroom procedures including objection handling and turn-taking protocols.
+
+RAG quality evaluation focuses on retrieval and integration of case law, assessing whether retrieved cases are relevant to agent-generated queries, whether cited precedents support the arguments being made, and whether metadata extraction produces accurate case information. 
+Citation accuracy evaluation verifies that citations match retrieved document content, conform to legal standards, and critically, that agents do not hallucinate case names or holdings not present in retrieved materials.
+
+== Current Assessment
+During development, the system underwent iterative testing to verify basic functionality. 
+The test suite validated that all prompts contained necessary components including role definitions, strategic priorities, ethical constraints, and quality checklists. 
+The RAG Integration Protocol implementation was verified to correctly detect agent-generated search requests, extract queries from the bracketed format, query the vector database appropriately, and provide formatted results back to agents. 
+Manual inspection of agent outputs confirmed that agents generally maintained role-appropriate behavior, generated search requests when lacking legal authority, and incorporated retrieved case law using appropriate citation formats.
+
 = Results
 
 

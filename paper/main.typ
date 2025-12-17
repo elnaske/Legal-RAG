@@ -48,6 +48,7 @@ For meta-tooling purposes, we also wanted to be able to query and observe what d
 
 = Agents
 == Infrastructure
+The agent infrastructure functions as multi-agent reasoning orchestration, where mulitple role-specific agents adaptively simulates a legal proceeding. They are structured to present arguments on both sides of an argument and summarize the consequence. Under the system, three primary agents, namely Prosecution, Defense, and Judge agents, are utilized. Prosecution agent plays a role in arguing for a conviction. Defense agent provides counter-arguments to the prosecution. Finaly, Judge agent operates as a neutral party, summarizing the entire debate and evaluate the accuracy and the relevance of the citations presented by Prosecution and Defense agents. All three agents are powered by llama3.1. Since multiple LLM calls are executed per user query, potentially including extra turns, the computational cost can easily blow up fast with an API model. Therefore, running llama3.1 on local makes the loops affordable though it needs to be swithced to a stronger API model in the future to maximize the response quality.
 
 == Case Selection and Analysis
 Three Supreme Court criminal cases were selected to represent diverse legal domains: 
@@ -64,6 +65,7 @@ Supporting protocols were developed to govern multi-agent interaction, including
 Quality checklists were developed for each agent role with pre-submission verification points and red flag warnings for common errors.
 
 == RAG Integration Design
+<<<<<<< HEAD
 A critical design decision involved enabling agents to generate their own search queries rather than relying solely on user input. 
 The prompts instruct agents to generate queries in the format "[SEARCH: legal doctrine + key facts + jurisdiction]" when they need legal authority. 
 Agent-generated queries are optimized for the specific legal issue being argued at the moment authority is needed, contain relevant legal terminology drawn from the agent's knowledge, and support iterative research as arguments develop. 
@@ -77,6 +79,11 @@ The RAG loop architecture was implemented using a base class pattern where share
 The core processing method queries the vector store with the user's original question for initial context, generates the agent's initial response, then enters a loop that continues until no search requests are detected. 
 Within each iteration, the method extracts search queries from the agent's response, queries the vector store using the agent's query rather than the user's question, formats results, constructs a continuation prompt providing results and requesting argument continuation, and invokes the language model to generate the continuation. 
 This approach ensures agents maintain conversation context throughout retrieval, building arguments iteratively with progressively refined case law research.
+=======
+Due to the American legal system's reliance on common law precedents, the integration of Retrieval-Augmented Generation (RAG) is imparative as it allows the specialized LLM agents to perform realistic legal reasoning based on factual case law. The RAG mechanism is explicitly designed to incentivize Prosecution and Defense agents to support their arguments by retrieving precedent cases from a vector database derived from a case law corpus. 
+
+The whole operation is initiated when an agent's output includes the specific stracture cue that the system can identify using Regex. Once the specific cue is identified, the system prompts a call to the embedding model and the vector database. The search query is embed through Sentence Transformers (all-MiniLM-L6-v2), which is later used to perform a similarity search within the Chroma Vector DB.
+>>>>>>> 8da48bf (added agent infrastructure to paper)
 
 == Implementation and Verification
 The prompts were implemented as a Python module with getter functions for each component and as a YAML version for version control and collaborative editing. 

@@ -42,12 +42,12 @@
   // ============================================================================
   
   set page(
-    paper: "a4",
+    paper: "us-letter",
     margin: (
-      top: 2.5cm,
-      bottom: 2.5cm,
-      left: 2.5cm,
-      right: 2.5cm,
+      top: 2.54cm,
+      bottom: 2.54cm,
+      left: 2.54cm,
+      right: 2.54cm,
     ),
     numbering: if show-page-numbers { "1" } else { none },
   )
@@ -58,7 +58,7 @@
   
   set text(
     font: "Times New Roman",
-    size: 10pt,
+    size: 11pt,
     lang: "en",
   )
   
@@ -67,6 +67,7 @@
     leading: 0.55em,
     first-line-indent: 1em,
     justify: true,
+    spacing: 1.5em,
   )
   
   // ============================================================================
@@ -198,6 +199,8 @@
         #if "email" in author and author.email != none [
           #text(fill: dark-blue)[#author.email]
         ]
+        #v(0.05in)
+        #datetime.today().display()
         #v(0.15in)
       ]
     ] else [

@@ -36,6 +36,19 @@ These lawyer-agents support their arguments through RAG, by querying a vector da
 After a few turns, the discussion ends and the conversation is summarized by a judge agent. 
 Thus, the final answer not only provides relevant case law, but also considers how the other side might argue against it.
 
+= Related Work
+== Multi-Agent Systems in Legal AI
+Recent work has explored multi-agent architectures for legal applications, demonstrating the potential for specialized agents to collaborate on complex legal tasks. 
+Sadowski and colleagues @sadowski2025verifiable introduced a modular multi-agent framework that decomposes legal reasoning into knowledge acquisition and application stages, achieving 76.4% accuracy on statutory tax calculation tasks. 
+Their approach uses specialized agents to extract legal concepts and formalize rules, creating verifiable intermediate representations. 
+A comprehensive survey by Feng and colleagues @feng2025legal reviewed applications of LLM-based legal agents across single-agent and multi-agent scenarios, identifying key challenges including specialized governance, cross-jurisdictional interoperability, and the need for trustworthy, explainable reasoning in legal contexts.
+
+== Retrieval-Augmented Generation for Legal Applications
+Retrieval-Augmented Generation has emerged as a promising approach to mitigate hallucinations in legal AI systems by grounding responses in external legal sources. 
+Lewis and colleagues @lewis2020retrieval first introduced the RAG paradigm, which enhances language models by incorporating relevant documents from external knowledge bases into the generation process. 
+Recent empirical work by Schwarcz and colleagues @schwarcz2025aipowered conducted a randomized controlled trial comparing RAG-powered legal AI tools with reasoning models, finding that RAG systems significantly enhanced legal work quality while avoiding the introduction of additional hallucinations. 
+Their study showed statistically significant productivity gains of 50% to 130% across complex legal tasks, demonstrating RAG's effectiveness for real-world legal applications.
+
 = Data
 == Extraction
 To properly implement our RAG-based system, it goes without saying that one of the most imperative items for Legal-RAG was to extract proper data. 

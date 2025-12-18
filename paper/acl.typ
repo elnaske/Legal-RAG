@@ -200,7 +200,7 @@
           #text(fill: dark-blue)[#author.email]
         ]
         #v(0.05in)
-        #datetime.today().display()
+        #datetime(year: 2025, month: 12, day: 18).display()
         #v(0.15in)
       ]
     ] else [

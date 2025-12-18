@@ -154,6 +154,4 @@ Judge, provide a neutral, structured summary following the required SUMMARY PROT
     def summarize(self, question: str, prosecution: str, defense: str) -> str:
         prompt = self.build_full_prompt(question=question, prosecution=prosecution, defense=defense)
         return self.process_with_rag(prompt, question)
-        """
 
-        return self.llm.invoke(prompt).content

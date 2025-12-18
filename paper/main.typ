@@ -126,7 +126,7 @@ Quality checklists were developed for each agent role with pre-submission verifi
 A critical design decision involved enabling agents to generate their own search queries rather than relying solely on user input. 
 The prompts instruct agents to generate queries in the format "[SEARCH: legal doctrine + key facts + jurisdiction]" when they need legal authority. 
 Agent-generated queries are optimized for the specific legal issue being argued at the moment authority is needed, contain relevant legal terminology drawn from the agent's knowledge, and support iterative research as arguments develop. 
-Example queries were embedded within prompts to teach appropriate specificity, such as "[SEARCH: fourth amendment warrantless search exigent circumstances]" demonstrating the inclusion of constitutional doctrine, procedural context, and relevant exception.
+Example queries were embedded within prompts to teach appropriate specificity, demonstrating the inclusion of constitutional doctrine, procedural context, and relevant exception.
 
 The RAG loop implementation follows as a two-step process.
 In the first step, the agent is prompted to generate RAG queries based on conversation history using the "[SEARCH: query text]" format.

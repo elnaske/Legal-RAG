@@ -57,7 +57,7 @@
   // ============================================================================
   
   set text(
-    font: "Times New Roman",
+    // font: "Times New Roman",
     size: 11pt,
     lang: "en",
   )
@@ -174,7 +174,7 @@
   // ============================================================================
   
   show raw: set text(
-    font: ("Courier New", "Courier", "monospace"),
+    // font: ("Courier New", "Courier", "monospace"),
     size: 9pt,
   )
   
